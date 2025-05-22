@@ -7,7 +7,7 @@
 use starknet::contract_address_const::CONTRACT_ADDRESS;
 use starknet::syscalls::{emit_event, get_block_hash};
 
-// -------------------------  storage  ----------------
+//   storage  
 #[storage]
 struct Storage {
     /// mapping(request_id) → hash(server_seed)  (commit)
@@ -16,14 +16,14 @@ struct Storage {
     deck: LegacyMap::<felt252, Array::<felt252>>,
 }
 
-// -------------------------  events  -----------------
+//   events  
 #[event]
 struct DeckRequested { request_id: felt252, server_seed_hash: felt252 }
 
 #[event]
 struct DeckFulfilled { request_id: felt252 }
 
-// --------------  helper: Fisher-Yates on felt[] -----
+//   helper: Fisher-Yates on felt[] 
 fn shuffle_fisher_yates(rands: Array::<felt252>) -> Array::<felt252> {
     let mut deck = Array::<felt252>::new();
     // initialise ordered deck 0-51 packed as two felts each (rank, suit)
@@ -45,7 +45,7 @@ fn shuffle_fisher_yates(rands: Array::<felt252>) -> Array::<felt252> {
     return deck;
 }
 
-// ----------------  external entry points ------------
+//   external entry points 
 #[external]
 fn request_random_deck{
         syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr

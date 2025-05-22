@@ -11,7 +11,7 @@ export default function FloatingMenu() {
   const links = [
     { label: 'Home',       href: '/#home' },
     { label: 'Mint NFT',   href: '/#mint' },
-    { label: 'Leaderboards', href: '/#boards' },
+    { label: 'Tournaments', href: '/#boards' },
     { label: 'Follow Us',  href: '/#stay' }
   ];
 

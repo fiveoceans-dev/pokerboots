@@ -6,8 +6,8 @@ import nftPlaceholder from '../assets/nft-placeholder.png';
  */
 export default function NftSaleSection() {
   const [form, setForm] = useState({
-    name: 'Saturday Night with Starknet',
-    creator: 'Starknet Foundation',
+    name: 'Saturday Night with Friends',
+    creator: 'CryptoPunk',
     description: 'Weekly high-stakes action for Starknet grinders. Join live on-chain poker action or live youtube stream.',
     game: 'Texas Hold’em',
     price: '10',
@@ -30,7 +30,7 @@ export default function NftSaleSection() {
   /* ---------------------- JSX ---------------------- */
   return (
     <section id="mint" className="relative py-24 px-6 md:px-12 bg-[#0a1a38] text-white">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-yellow-300 text-center mb-12">Launch NFT Sale</h2>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-yellow-300 text-center mb-12">Spin Up Tournament with NFTs</h2>
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12">
         {/* NFT preview */}
         <div className="flex-1 flex justify-center">

@@ -45,7 +45,7 @@ def verify_deck(deck_json, server_seed, client_seed, nonce):
     expected, _ = deal(server_seed, client_seed, nonce)
     return expected == deck_json
 
-# -----------------------  χ² uniformity test  ---------------------
+#   χ² uniformity test  
 def chi_square(num_trials=100_000):
     counts = Counter()
     for i in range(num_trials):
@@ -56,7 +56,7 @@ def chi_square(num_trials=100_000):
     chi2 = sum((c-expected)**2/expected for c in counts.values())
     return chi2
 
-# -----------------------  unit tests  -----------------------------
+#   unit tests  
 class TestRNG(unittest.TestCase):
     def test_reproducible(self):
         s, c, n = b'a'*32, b'b'*32, 42

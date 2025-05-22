@@ -4,16 +4,15 @@ import { useState } from 'react';
  * TournamentBoards – shows Top Sales / Most Popular / Upcoming with live bankroll math.
  */
 export default function TournamentBoards() {
-  /* ────────── Sample Data ────────── */
   type Row = {
     Name: string;
-    Creator: string;
     Game: string;
     Ticket: number; // price in USD
     Sold: number;   // how many minted
     Total: number;  // max supply
     Bank: number;   // auto‑computed prize pool (sold × ticket × 0.8)
     Date: string;
+    Creator: string;
   };
 
   const columns: (keyof Row & string)[] = [
@@ -28,13 +27,13 @@ export default function TournamentBoards() {
 
   const makeRow = (sold: number): Row => ({
     Name: 'Sunday Night Poker',
-    Creator: 'Five',
     Game: 'Hold’em',
     Ticket: 10,
     Sold: sold,
     Total: 1000,
     Bank: sold * 10 * 0.8,
-    Date: 'June 1 / 7'
+    Date: 'June 1 / 7',
+    Creator: 'Five'
   });
 
   const rows = Array.from({ length: 10 }, (_, i) => makeRow(1000 - i * 75));
@@ -94,7 +93,7 @@ function InsightBoard<T extends Record<string, any>>({ title, columns, rows }: B
                   <td key={col} className="px-2 py-1 whitespace-nowrap">
                     {col === 'Creator' ? (
                       <div className="flex items-center gap-2">
-                        <img src={`https://i.pravatar.cc/24?u=${row.Creator}`} alt="avatar" className="w-6 h-6 rounded-full" />
+                        <img src={`https://placehold.co/75x75.png`} alt="avatar" className="w-6 h-6 rounded-full" />
                         {row.Creator}
                       </div>
                     ) : col === 'Ticket' ? (

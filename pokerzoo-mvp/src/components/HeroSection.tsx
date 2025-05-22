@@ -14,9 +14,11 @@ export default function HeroSection() {
       {/* content wrapper */}
       <div className="relative z-10 max-w-4xl w-full mx-auto">
         {/* headline */}
-        <h1 className="font-extrabold text-4xl md:text-6xl leading-tight uppercase tracking-wider text-left">
-          <span className="block text-yellow-400">Poker on Starknet</span>
-          with NFT-ticket Sale
+        <h1 className="font-extrabold text-4xl md:text-4xl leading-tight uppercase tracking-wider text-left">
+          <span className="block text-yellow-400">POKER ON STARKNET</span>
+          <span className="block text-white-400">SPIN UP YOUR TOURNAMENT</span>
+          <span className="block text-white-400">WITH NFT SALE</span>
+
         </h1>
 
         {/* subline */}
@@ -34,10 +36,10 @@ export default function HeroSection() {
         {/* CTA */}
         <div className="mt-10 flex gap-4" >
           <a href="/#mint" className="px-6 py-3 bg-yellow-400 text-[#0c1a3a] font-semibold rounded-lg shadow hover:bg-yellow-300 transition-colors">
-            NFT
+            BUY NFT
           </a>
           <a href="/play" className="px-6 py-3 bg-transparent border border-yellow-400 text-yellow-400 font-semibold rounded-lg hover:bg-yellow-400 hover:text-[#0c1a3a] transition-colors">
-            Play Now
+            PLAY NOW
           </a>
         </div>
       </div>

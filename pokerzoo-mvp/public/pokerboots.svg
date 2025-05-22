@@ -4,20 +4,23 @@
 	 viewBox="0 0 31.9 32" style="enable-background:new 0 0 31.9 32;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:#FFFFFF;}
-	.st2{font-family:'Phosphate-Inline';}
-	.st3{font-size:5.9066px;}
+	.st1{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;stroke-dasharray:5;}
+	.st2{fill:none;stroke:#E07070;stroke-width:3;stroke-miterlimit:10;stroke-dasharray:6;}
+	.st3{stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st4{font-family:'MyriadPro-Regular';}
+	.st5{font-size:11px;}
 </style>
 <g>
 	<g>
 		
-			<radialGradient id="SVGID_1_" cx="-507.4743" cy="-105.6983" r="7.085700e-02" gradientTransform="matrix(73.9998 277.4998 -277.511 74.0028 8231.2666 148647.1719)" gradientUnits="userSpaceOnUse">
+			<radialGradient id="SVGID_1_" cx="-794.9399" cy="519.3306" r="7.085700e-02" gradientTransform="matrix(73.9998 277.4998 277.511 -74.0028 -85283.8281 259028.7656)" gradientUnits="userSpaceOnUse">
 			<stop  offset="0" style="stop-color:#1B1BB5"/>
 			<stop  offset="1" style="stop-color:#0C0C4F"/>
 		</radialGradient>
-		<path class="st0" d="M1.2,16c0,8.2,6.6,14.8,14.8,14.8c8.2,0,14.8-6.6,14.8-14.8c0-8.2-6.6-14.8-14.8-14.8S1.2,7.9,1.2,16z"/>
+		<path class="st0" d="M1.2,16c0,8.2,6.6,14.8,14.8,14.8S30.8,24.2,30.8,16S24.2,1.2,16,1.2S1.2,7.9,1.2,16z"/>
 	</g>
 </g>
-<text transform="matrix(1 0 0 1 6.8491 15.1139)" class="st1 st2 st3">Poker</text>
-<text transform="matrix(1 0 0 1 6.8491 22.2086)" class="st1 st2 st3">Boots</text>
+<circle class="st1" cx="16" cy="16" r="11.1"/>
+<circle class="st2" cx="16" cy="16" r="13.3"/>
+<text transform="matrix(1 0 0 1 3.1894 21.0039)" class="st3 st4 st5">Boots</text>
 </svg>
