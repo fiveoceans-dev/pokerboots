@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 31.9 32" style="enable-background:new 0 0 31.9 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#FFFFFF;}
+	.st2{font-family:'Phosphate-Inline';}
+	.st3{font-size:5.9066px;}
+</style>
+<g>
+	<g>
+		
+			<radialGradient id="SVGID_1_" cx="-507.4743" cy="-105.6983" r="7.085700e-02" gradientTransform="matrix(73.9998 277.4998 -277.511 74.0028 8231.2666 148647.1719)" gradientUnits="userSpaceOnUse">
+			<stop  offset="0" style="stop-color:#1B1BB5"/>
+			<stop  offset="1" style="stop-color:#0C0C4F"/>
+		</radialGradient>
+		<path class="st0" d="M1.2,16c0,8.2,6.6,14.8,14.8,14.8c8.2,0,14.8-6.6,14.8-14.8c0-8.2-6.6-14.8-14.8-14.8S1.2,7.9,1.2,16z"/>
+	</g>
+</g>
+<text transform="matrix(1 0 0 1 6.8491 15.1139)" class="st1 st2 st3">Poker</text>
+<text transform="matrix(1 0 0 1 6.8491 22.2086)" class="st1 st2 st3">Boots</text>
+</svg>
