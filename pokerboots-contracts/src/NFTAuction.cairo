@@ -25,7 +25,7 @@ namespace IERC20 {
 }
 
 @contract_interface
-namespace ITicketNFT {
+namespace INFTTicket {
     func safe_mint{
             syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
         }(
@@ -126,7 +126,7 @@ func buy_ticket{
     Storage::next_id::write(uint256_add(next, Uint256(1,0)));
     let ticket_nft = Storage::ticket_nft::read();
     let tour_id    = Storage::tournament_id::read();
-    ITicketNFT::safe_mint{
+    INFTTicket::safe_mint{
         syscall_ptr=syscall_ptr, pedersen_ptr=pedersen_ptr, range_check_ptr=range_check_ptr,
         contract_address=ticket_nft
     }(buyer, next, tour_id);
