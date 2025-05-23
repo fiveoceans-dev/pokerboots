@@ -1,4 +1,4 @@
-// src/TicketNFT.cairo
+// src/NFTTicket.cairo
 %lang starknet
 %builtins pedersen range_check
 

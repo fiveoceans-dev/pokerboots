@@ -1,4 +1,4 @@
-// src/Treasury.cairo
+// src/ProtocolTreasury.cairo
 %lang starknet
 %builtins pedersen range_check
 
