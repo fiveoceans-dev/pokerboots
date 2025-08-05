@@ -10,7 +10,7 @@ interface Props {
 
 export default function ActionBar({ street, ...actions }: Props) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 card p-2 rounded-full">
       {street === 'preflop' && <button onClick={actions.onFlop}  className="btn">Deal Flop</button>}
       {street === 'flop'     && <button onClick={actions.onTurn} className="btn">Deal Turn</button>}
       {street === 'turn'     && <button onClick={actions.onRiver}className="btn">Deal River</button>}

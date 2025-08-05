@@ -29,8 +29,8 @@ export default function NftSaleSection() {
 
   /* ---------------------- JSX ---------------------- */
   return (
-    <section id="mint" className="relative py-24 px-6 md:px-12 bg-[#0a1a38] text-white">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-yellow-300 text-center mb-12">Spin Up Tournament with NFTs</h2>
+    <section id="mint" className="relative py-24 px-6 md:px-12 bg-gradient-to-br from-[#141414] via-[#1b1b1b] to-[#232323] text-white">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--brand-accent)] text-center mb-12">Spin Up Tournament with NFTs</h2>
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12">
         {/* NFT preview */}
         <div className="flex-1 flex justify-center">
@@ -38,7 +38,7 @@ export default function NftSaleSection() {
         </div>
         {/* Configurator */}
         <div className="flex-1">
-          <div className="bg-white/5 backdrop-blur-md p-8 rounded-xl border border-yellow-400/30 shadow-lg space-y-5">
+          <div className="card p-8 space-y-5">
             <Field label="Title" name="name" value={form.name} onChange={handleChange} />
             <Field label="Creator" name="creator" value={form.creator} onChange={handleChange} />
             <Field label="Description" name="description" value={form.description} onChange={handleChange} textarea />
@@ -68,7 +68,7 @@ export default function NftSaleSection() {
               </select>
             </label>
 
-            <button className="w-full mt-6 py-3 bg-yellow-400 text-[#0c1a3a] font-semibold rounded-lg hover:bg-yellow-300 transition-colors">Launch (TBD)</button>
+            <button className="w-full mt-6 btn">Launch (TBD)</button>
           </div>
         </div>
       </div>

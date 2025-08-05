@@ -1,20 +1,20 @@
 import { useState } from 'react';
 
 /**
- * TournamentBoards – shows Top Sales / Most Popular / Upcoming with live bankroll math.
+ * TournamentBoards – shows Top Sales / Most Popular / Upcoming with live bankroll math.
  */
-export default function TournamentBoards() {
-  type Row = {
-    Name: string;
-    Game: string;
-    Ticket: number; // price in USD
-    Sold: number;   // how many minted
-    Total: number;  // max supply
-    Bank: number;   // auto‑computed prize pool (sold × ticket × 0.8)
-    Date: string;
-    Creator: string;
-  };
+type Row = {
+  Name: string;
+  Game: string;
+  Ticket: number; // price in USD
+  Sold: number;   // how many minted
+  Total: number;  // max supply
+  Bank: number;   // auto-computed prize pool (sold × ticket × 0.8)
+  Date: string;
+  Creator: string;
+};
 
+export default function TournamentBoards() {
   const columns: (keyof Row & string)[] = [
     'Name',
     'Game',
@@ -39,8 +39,8 @@ export default function TournamentBoards() {
   const rows = Array.from({ length: 10 }, (_, i) => makeRow(1000 - i * 75));
 
   return (
-    <section id="boards" className="relative py-24 px-6 md:px-12 bg-[#081224] text-white">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-yellow-300 text-center mb-12">Explore</h2>
+    <section id="boards" className="relative py-24 px-6 md:px-12 bg-gradient-to-br from-[#141414] via-[#1b1b1b] to-[#232323] text-white">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--brand-accent)] text-center mb-12">Explore</h2>
       <div className="flex flex-col gap-10 max-w-6xl mx-auto">
         <InsightBoard title="Top Sales" columns={columns} rows={rows} />
         <InsightBoard title="Most Popular" columns={columns} rows={rows} />
@@ -51,12 +51,12 @@ export default function TournamentBoards() {
 }
 
 /* ────────── Generic Board ────────── */
-interface BoardProps<T extends Record<string, any>> {
+interface BoardProps {
   title: string;
-  columns: (keyof T & string)[];
-  rows: T[];
+  columns: (keyof Row & string)[];
+  rows: Row[];
 }
-function InsightBoard<T extends Record<string, any>>({ title, columns, rows }: BoardProps<T>) {
+function InsightBoard({ title, columns, rows }: BoardProps) {
   const [filter, setFilter] = useState('');
   const lc = filter.toLowerCase();
   const filtered = rows.filter(r =>
@@ -64,7 +64,7 @@ function InsightBoard<T extends Record<string, any>>({ title, columns, rows }: B
   );
 
   return (
-    <div className="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-lg">
+    <div className="card p-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
         <h3 className="text-xl font-semibold text-yellow-300">{title}</h3>
         <input
