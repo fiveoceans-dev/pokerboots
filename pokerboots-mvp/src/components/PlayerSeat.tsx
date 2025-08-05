@@ -21,14 +21,14 @@ export default function PlayerSeat({
   return (
     <div
       className={clsx(
-        'relative flex flex-col items-center gap-1',
+        'relative flex flex-col items-center gap-1 card p-2 rounded-xl',
         player.folded && 'opacity-60',
-        isActive && 'ring-4 ring-amber-300 rounded-lg'
+        isActive && 'ring-4 ring-[var(--brand-accent)]'
       )}
     >
       {/* dealer button */}
       {isDealer && (
-        <span className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-yellow-400 text-black text-xs font-bold flex items-center justify-center">
+        <span className="absolute -top-3 -right-3 w-6 h-6 rounded-full bg-[var(--brand-accent)] text-black text-xs font-bold flex items-center justify-center">
           D
         </span>
       )}

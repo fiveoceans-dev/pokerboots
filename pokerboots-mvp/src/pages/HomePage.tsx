@@ -12,7 +12,7 @@ import Menu from '../components/Menu';
  */
 export default function HomePage() {
   return (
-    <div className="min-h-screen text-white bg-gradient-to-b from-[#02040b] via-[#0c1a3a] to-[#102047] overflow-x-hidden">
+    <div className="min-h-screen text-white bg-gradient-to-b from-[#0d0d0d] via-[#1b1b1b] to-[#232323] overflow-x-hidden">
       <Menu />
       <HeroSection />
       <NftSaleSection />

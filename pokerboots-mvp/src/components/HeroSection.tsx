@@ -7,22 +7,24 @@ import appMockup from '../assets/app-mockup.png';
  */
 export default function HeroSection() {
   return (
-    <section id="home" className="relative flex flex-col justify-center h-[100vh] px-6 md:px-12 overflow-hidden">
+    <section
+      id="home"
+      className="relative flex flex-col justify-center items-center h-screen px-6 md:px-12 overflow-hidden text-center"
+    >
       {/* decorative angle */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-600/20 to-indigo-800/10 [clip-path:polygon(0_0,100%_0,100%_75%,0_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--brand-accent)]/20 via-purple-600/10 to-indigo-700/10 [clip-path:polygon(0_0,100%_0,100%_75%,0_100%)] pointer-events-none" />
 
       {/* content wrapper */}
       <div className="relative z-10 max-w-4xl w-full mx-auto">
         {/* headline */}
-        <h1 className="font-extrabold text-4xl md:text-4xl leading-tight uppercase tracking-wider text-left">
-          <span className="block text-yellow-400">POKER ON STARKNET</span>
-          <span className="block text-white-400">SPIN UP YOUR TOURNAMENT</span>
-          <span className="block text-white-400">WITH NFT SALE</span>
-
+        <h1 className="font-extrabold text-4xl md:text-5xl leading-tight uppercase tracking-wider">
+          <span className="block text-[var(--brand-accent)]">POKER ON STARKNET</span>
+          <span className="block text-white">SPIN UP YOUR TOURNAMENT</span>
+          <span className="block text-white">WITH NFT SALE</span>
         </h1>
 
         {/* subline */}
-        <p className="mt-4 text-slate-300 text-lg md:text-xl text-left">
+        <p className="mt-4 text-slate-300 text-lg md:text-xl">
           Mint tickets → Prize pool auto‑escrows → Smart‑contract payouts.
         </p>
 
@@ -34,11 +36,14 @@ export default function HeroSection() {
         </ul>
 
         {/* CTA */}
-        <div className="mt-10 flex gap-4" >
-          <a href="/#mint" className="px-6 py-3 bg-yellow-400 text-[#0c1a3a] font-semibold rounded-lg shadow hover:bg-yellow-300 transition-colors">
+        <div className="mt-10 flex gap-4 justify-center">
+          <a href="/#mint" className="btn">
             BUY NFT
           </a>
-          <a href="/play" className="px-6 py-3 bg-transparent border border-yellow-400 text-yellow-400 font-semibold rounded-lg hover:bg-yellow-400 hover:text-[#0c1a3a] transition-colors">
+          <a
+            href="/play"
+            className="btn" style={{ background: 'transparent', color: 'var(--brand-accent)', border: '2px solid var(--brand-accent)' }}
+          >
             PLAY NOW
           </a>
         </div>

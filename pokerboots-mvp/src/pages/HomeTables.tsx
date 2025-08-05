@@ -15,12 +15,12 @@ export default function HomeTables() {
 
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-green-900 to-green-700 text-white">
+    <main className="min-h-screen flex flex-col items-center bg-gradient-to-br from-[#0d0d0d] via-[#1b1b1b] to-[#232323] text-white">
       <header className="relative w-full max-w-6xl flex items-center justify-between mt-6 mb-4 px-4">
         <h1 className="text-4xl font-bold">PokerBoots × Starknet</h1>
 
         <button
-          className="absolute left-1/2 -translate-x-1/2 px-4 py-2 rounded bg-blue-900 hover:bg-red-500 font-semibold"
+          className="absolute left-1/2 -translate-x-1/2 btn"
           onClick={() => alert('join logic TBD')}
         >
           Join Table

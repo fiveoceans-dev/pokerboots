@@ -51,5 +51,7 @@ export default function Card({ card, hidden, size = 'md' }: Props) {
       ? cardStarknet
       : faceSvgs[faceKey(card)] ?? cardStarknet; // fallback to back if missing
 
-  return <img src={src} className={className} draggable={false} />;
+  const style = !hidden && card ? { border: '2px solid var(--brand-accent)' } : undefined;
+
+  return <img src={src} className={className} style={style} draggable={false} />;
 }

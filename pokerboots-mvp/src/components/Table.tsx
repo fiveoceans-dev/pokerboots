@@ -90,7 +90,7 @@ export default function Table() {
       {/* poker-table oval */}
       <div
         className="
-          relative rounded-full border-8 border-black bg-blue-900
+          relative rounded-full border-8 border-[var(--brand-accent)] bg-gradient-to-br from-[#1e1e1e] to-[#0e0e0e]
           shadow-[0_0_40px_rgba(0,0,0,0.6)]
           w-[680px] h-[420px]
         "

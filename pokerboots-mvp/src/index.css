@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root {
+  --brand-accent: #ffdc00;
+  --brand-accent-secondary: #ff8e00;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top left, #131313 0%, #0d0d0d 100%);
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.btn {
+  background: linear-gradient(90deg, var(--brand-accent), var(--brand-accent-secondary));
+  color: #000000;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(255, 220, 0, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 220, 0, 0.7);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
