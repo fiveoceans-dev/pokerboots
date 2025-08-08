@@ -1,178 +1,133 @@
-// src/Bank.cairo
-%lang starknet
-%builtins pedersen range_check
+#[starknet::contract]
+mod Bank {
+    use core::array::ArrayTrait;
+    use starknet::math::uint256::{Uint256, uint256_add, uint256_sub};
+    use starknet::storage::legacy::LegacyMap;
+    use starknet::syscalls::get_caller_address;
 
-from starknet::syscalls import get_caller_address, emit_event
-from starknet::uint256 import Uint256, uint256_add, uint256_sub
-from starknet::contract_address_const import CONTRACT_ADDRESS
-
-// ────────── Interfaces ──────────
-@contract_interface
-namespace IERC20 {
-    func transfer{
-            syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-        }(
-            recipient: felt,
-            amount: Uint256
-        ) -> (success: felt);
-}
-
-// ────────── Storage ──────────
-#[storage]
-struct Storage {
-    token             : felt,      // ERC20 token address
-    depositor_role    : LegacyMap::<felt, felt>,                 // who can record deposits
-    payer_role        : LegacyMap::<felt, felt>,                 // who can call payout
-    total_deposited   : LegacyMap::<felt, Uint256>,              // tourId → total Uint256
-    player_deposit    : LegacyMap::<(felt, felt), Uint256>,      // (tourId,player) → Uint256
-}
-
-// ────────── Events ──────────
-#[event] struct DepositRecorded { tour_id: felt, player: felt, amount: Uint256 }
-#[event] struct Refunded        { tour_id: felt, player: felt, amount: Uint256 }
-#[event] struct PayoutMade      { tour_id: felt, player: felt, amount: Uint256 }
-
-// ────────── Constructor ──────────
-@external
-func constructor{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(
-        token: felt,
-        initial_depositor: felt,
-        initial_payer: felt
-    )
-{
-    Storage::token::write(token);
-    Storage::depositor_role::write(initial_depositor, 1);
-    Storage::payer_role::write(initial_payer, 1);
-    return ();
-}
-
-// ────────── Modifiers ──────────
-func only_depositor() {
-    let caller = get_caller_address();
-    let ok     = Storage::depositor_role::read(caller);
-    assert ok == 1_u8;
-}
-func only_payer() {
-    let caller = get_caller_address();
-    let ok     = Storage::payer_role::read(caller);
-    assert ok == 1_u8;
-}
-
-// ────────── Record a deposit (called by NFTAuction after transferring tokens) ──────────
-@external
-func record_deposit{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(
-        tour_id: felt,
-        player: felt,
-        amount: Uint256
-    )
-{
-    only_depositor();
-    // update total
-    let prev_total = Storage::total_deposited::read(tour_id);
-    let new_total  = uint256_add(prev_total, amount);
-    Storage::total_deposited::write(tour_id, new_total);
-
-    // update per-player
-    let key = (tour_id, player);
-    let prev_pd = Storage::player_deposit::read(key);
-    let new_pd  = uint256_add(prev_pd, amount);
-    Storage::player_deposit::write(key, new_pd);
-
-    emit_event DepositRecorded { tour_id, player, amount };
-    return ();
-}
-
-// ────────── Refund all players (e.g. on cancel) ──────────
-@external
-func refund_all{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(
-        tour_id: felt,
-        players: Array::<felt>
-    )
-{
-    only_depositor();
-
-    let token = Storage::token::read();
-    // iterate players
-    for player in players.iter() {
-        let key       = (tour_id, player);
-        let deposited = Storage::player_deposit::read(key);
-        // zero it out before transfer
-        Storage::player_deposit::write(key, Uint256(0,0));
-
-        // subtract from total
-        let prev_total = Storage::total_deposited::read(tour_id);
-        let new_total  = uint256_sub(prev_total, deposited);
-        Storage::total_deposited::write(tour_id, new_total);
-
-        // transfer back
-        let (_ok) = IERC20::transfer{
-            syscall_ptr=syscall_ptr,
-            pedersen_ptr=pedersen_ptr,
-            range_check_ptr=range_check_ptr,
-            contract_address=token
-        }(player, deposited);
-
-        emit_event Refunded { tour_id, player, amount: deposited };
+    #[starknet::interface]
+    trait IERC20<TContractState> {
+        fn transfer(ref self: TContractState, recipient: felt252, amount: Uint256) -> bool;
     }
-    return ();
-}
 
-// ────────── Payout winners (called by StateMachine) ──────────
-@external
-func payout{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(
-        tour_id: felt,
-        players: Array::<felt>,
-        amounts: Array::<Uint256>
-    )
-{
-    only_payer();
-
-    let token = Storage::token::read();
-    // iterate and pay
-    let mut i = 0;
-    while i < players.len() {
-        let player = players.at(i);
-        let amt    = amounts.at(i);
-        // update total_deposited
-        let prev_total = Storage::total_deposited::read(tour_id);
-        let new_total  = uint256_sub(prev_total, amt);
-        Storage::total_deposited::write(tour_id, new_total);
-
-        // transfer out
-        let (_ok) = IERC20::transfer{
-            syscall_ptr=syscall_ptr,
-            pedersen_ptr=pedersen_ptr,
-            range_check_ptr=range_check_ptr,
-            contract_address=token
-        }(player, amt);
-
-        emit_event PayoutMade { tour_id, player, amount: amt };
-        i += 1;
+    #[storage]
+    struct Storage {
+        token: felt252,
+        depositor_role: LegacyMap<felt252, felt252>,
+        payer_role: LegacyMap<felt252, felt252>,
+        total_deposited: LegacyMap<felt252, Uint256>,
+        player_deposit: LegacyMap<(felt252, felt252), Uint256>,
     }
-    return ();
-}
 
-// ────────── Views ──────────
-@view
-func get_total_deposited{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(tour_id: felt) -> Uint256
-{
-    return (Storage::total_deposited::read(tour_id),);
-}
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    struct DepositRecorded {
+        tour_id: felt252,
+        player: felt252,
+        amount: Uint256,
+    }
 
-@view
-func get_player_deposit{
-        syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
-    }(tour_id: felt, player: felt) -> Uint256
-{
-    return (Storage::player_deposit::read((tour_id, player)),);
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    struct Refunded {
+        tour_id: felt252,
+        player: felt252,
+        amount: Uint256,
+    }
+
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    struct PayoutMade {
+        tour_id: felt252,
+        player: felt252,
+        amount: Uint256,
+    }
+
+    #[constructor]
+    fn constructor(
+        ref self: ContractState, token: felt252, initial_depositor: felt252, initial_payer: felt252,
+    ) {
+        self.token.write(token);
+        self.depositor_role.write(initial_depositor, 1);
+        self.payer_role.write(initial_payer, 1);
+    }
+
+    fn only_depositor(self: @ContractState) {
+        let caller = get_caller_address();
+        let ok = self.depositor_role.read(caller);
+        assert(ok == 1);
+    }
+
+    fn only_payer(self: @ContractState) {
+        let caller = get_caller_address();
+        let ok = self.payer_role.read(caller);
+        assert(ok == 1);
+    }
+
+    #[external]
+    fn record_deposit(ref self: ContractState, tour_id: felt252, player: felt252, amount: Uint256) {
+        self.only_depositor();
+        let prev_total = self.total_deposited.read(tour_id);
+        let new_total = uint256_add(prev_total, amount);
+        self.total_deposited.write(tour_id, new_total);
+
+        let key = (tour_id, player);
+        let prev_pd = self.player_deposit.read(key);
+        let new_pd = uint256_add(prev_pd, amount);
+        self.player_deposit.write(key, new_pd);
+
+        emit!(DepositRecorded { tour_id, player, amount });
+    }
+
+    #[external]
+    fn refund_all(ref self: ContractState, tour_id: felt252, players: Array<felt252>) {
+        self.only_depositor();
+        let token = self.token.read();
+        let erc20 = IERC20Dispatcher { contract_address: token };
+
+        for player in players.iter() {
+            let key = (tour_id, player);
+            let deposited = self.player_deposit.read(key);
+            self.player_deposit.write(key, Uint256 { low: 0, high: 0 });
+
+            let prev_total = self.total_deposited.read(tour_id);
+            let new_total = uint256_sub(prev_total, deposited);
+            self.total_deposited.write(tour_id, new_total);
+
+            erc20.transfer(player, deposited);
+            emit!(Refunded { tour_id, player, amount: deposited });
+        }
+    }
+
+    #[external]
+    fn payout(
+        ref self: ContractState, tour_id: felt252, players: Array<felt252>, amounts: Array<Uint256>,
+    ) {
+        self.only_payer();
+        let token = self.token.read();
+        let erc20 = IERC20Dispatcher { contract_address: token };
+        let len = players.len();
+        assert(len == amounts.len());
+        let mut i = 0;
+        while i < len {
+            let player = players.at(i);
+            let amt = amounts.at(i);
+            let prev_total = self.total_deposited.read(tour_id);
+            let new_total = uint256_sub(prev_total, amt);
+            self.total_deposited.write(tour_id, new_total);
+            erc20.transfer(player, amt);
+            emit!(PayoutMade { tour_id, player, amount: amt });
+            i = i + 1;
+        }
+    }
+
+    #[view]
+    fn get_total_deposited(self: @ContractState, tour_id: felt252) -> Uint256 {
+        self.total_deposited.read(tour_id)
+    }
+
+    #[view]
+    fn get_player_deposit(self: @ContractState, tour_id: felt252, player: felt252) -> Uint256 {
+        self.player_deposit.read((tour_id, player))
+    }
 }
