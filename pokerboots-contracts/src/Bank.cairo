@@ -115,6 +115,9 @@ mod Bank {
             let prev_total = self.total_deposited.read(tour_id);
             let new_total = uint256_sub(prev_total, amt);
             self.total_deposited.write(tour_id, new_total);
+            // Clear any recorded deposit for the player to prevent later refunds.
+            let key = (tour_id, player);
+            self.player_deposit.write(key, Uint256 { low: 0, high: 0 });
             erc20.transfer(player, amt);
             emit!(PayoutMade { tour_id, player, amount: amt });
             i = i + 1;

@@ -67,6 +67,10 @@ mod NFTAuction {
         let erc20_addr = self.token.read();
         let erc20 = IERC20Dispatcher { contract_address: erc20_addr };
 
+        let mut next = self.next_id.read();
+        // Effects: update state before external calls to mitigate re-entrancy.
+        self.next_id.write(uint256_add(next, Uint256 { low: 1, high: 0 }));
+
         let this = get_contract_address();
         assert(erc20.transfer_from(buyer, this, price));
 
@@ -78,12 +82,10 @@ mod NFTAuction {
         let creator_escrow = self.creator_escrow.read();
         let bank = self.bank.read();
 
-        erc20.transfer(fee_vault, fee);
-        erc20.transfer(creator_escrow, fee);
-        erc20.transfer(bank, pool);
+        assert(erc20.transfer(fee_vault, fee));
+        assert(erc20.transfer(creator_escrow, fee));
+        assert(erc20.transfer(bank, pool));
 
-        let mut next = self.next_id.read();
-        self.next_id.write(uint256_add(next, Uint256 { low: 1, high: 0 }));
         let ticket_nft = INFTTicketDispatcher { contract_address: self.ticket_nft.read() };
         let tour_id = self.tournament_id.read();
         ticket_nft.safe_mint(buyer, next, tour_id);
