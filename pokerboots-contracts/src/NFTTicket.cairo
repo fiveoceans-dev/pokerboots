@@ -24,6 +24,8 @@ mod NFTTicket {
     #[external]
     fn safe_mint(ref self: ContractState, to: felt252, token_id: u256, tournament_id: felt252) {
         assert(get_caller_address() == self.minter.read());
+        // Prevent accidental or malicious reminting of an existing token.
+        assert(self.token_owner.read(token_id) == 0);
         self.token_owner.write(token_id, to);
         self.tour_of.write(token_id, tournament_id);
     }
