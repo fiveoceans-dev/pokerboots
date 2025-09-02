@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "baseUrl": ".",
+    "paths": {
+      "../../game-engine": ["./game-engine/index.ts"],
+      "../../game-engine/*": ["./game-engine/*"]
+    }
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "strict": true,
+      "skipLibCheck": true,
+      "noImplicitAny": true
+    }
+  },
+  "files": [
+    "src/index.ts",
+    "src/pokerWebSocketServer.ts",
+    "src/sessionManager.ts",
+    "src/persistence.ts", 
+    "src/user.ts",
+    "src/utils.ts"
+  ],
+  "include": [
+    "src/**/*",
+    "../game-engine/**/*.ts"
+  ],
+  "exclude": [
+    "dist", 
+    "node_modules", 
+    "**/*.test.ts",
+    "**/__tests__/**",
+    "../utils/address.ts",
+    "../utils/scaffold-stark/**/*",
+    "../app/**/*",
+    "../components/**/*",
+    "../hooks/**/*",
+    "../services/**/*"
+  ]
+}

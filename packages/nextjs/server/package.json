@@ -1,0 +1,46 @@
+{
+  "name": "pokernft-websocket-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for PokerNFT multiplayer game",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "tsc --noEmitOnError false",
+    "start": "node dist/src/index.js",
+    "dev": "ts-node src/index.ts",
+    "server-local": "./server-local.sh",
+    "test": "vitest",
+    "deploy": "git subtree push --prefix=packages/nextjs/server heroku main",
+    "deploy-heroku": "./heroku-deploy.sh",
+    "heroku-postbuild": "npm run build"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "redis": "^4.7.0",
+    "uuid": "^9.0.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^9.0.0",
+    "@types/ws": "^8.18.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
+  },
+  "overrides": {
+    "babel-plugin-istanbul": {
+      "test-exclude": "^7.0.1"
+    }
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "poker",
+    "websocket",
+    "multiplayer",
+    "starknet"
+  ],
+  "license": "MIT"
+}

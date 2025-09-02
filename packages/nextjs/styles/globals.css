@@ -1,0 +1,250 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:wght@400;700&family=Inter:wght@400;700&display=swap");
+
+:root {
+  --color-primary: #0a0a0a;
+  --color-accent: #ccff00;
+  --color-secondary: #0eaecf;
+  --color-highlight: #a16207;
+  --color-background: #e5e5e5;
+  --color-border: #2a2a2a;
+  --color-neon-yellow: #e0ff00;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  @apply font-serif-body;
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(204, 255, 0, 0.15),
+      transparent 40%
+    ),
+    radial-gradient(circle at 80% 0%, rgba(0, 26, 130, 0.15), transparent 40%);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  font-weight: 700;
+  @apply font-serif-renaissance;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 16px;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.caption {
+  font-size: 12px;
+}
+
+.btn {
+  @apply shadow-md;
+}
+
+html {
+  @apply overflow-y-scroll overflow-x-hidden;
+}
+
+body {
+  @apply overflow-y-auto overflow-x-hidden;
+}
+
+.modal {
+  @apply overflow-hidden z-[10000];
+}
+
+.modal-box {
+  @apply min-h-[20rem] max-w-[25rem] overflow-hidden;
+  transform: translateZ(0);
+}
+
+.modal-backdrop,
+.modal.backdrop-blur {
+  @apply fixed inset-0 overflow-hidden;
+}
+
+.btn.btn-ghost {
+  @apply shadow-none;
+}
+
+.circle-gradient {
+  border-radius: 630px;
+  background: #1081c3;
+  filter: blur(229px);
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.circle-gradient-blue {
+  border-radius: 630px;
+  background: #800020;
+  filter: blur(250px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.border-gradient {
+  border: 1px solid #1081c3;
+}
+
+.bg-modal {
+  backdrop-filter: blur(7.449999809265137px);
+}
+
+.custom::after {
+  position: absolute !important;
+  display: block !important;
+  height: 0.5rem !important;
+  width: 0.5rem !important;
+  top: 1rem !important;
+  right: 1.4rem !important;
+  transform: translateY(-100%) rotate(45deg) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  content: "" !important;
+  box-shadow: 2px 2px !important;
+  pointer-events: none !important;
+}
+
+@layer utilities {
+  .clip-corner {
+    clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%);
+  }
+
+  .clip-corner::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 1rem;
+    height: 1rem;
+    background: inherit;
+    border-top: 1px solid #1081c3;
+    border-right: 1px solid #1081c3;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    z-index: 10;
+  }
+}
+
+.circle-gradient-dark {
+  position: absolute;
+  top: 0;
+  left: 60px;
+  border-radius: 630px;
+  background: #1081c3;
+  filter: blur(229px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.circle-gradient-blue-dark {
+  border-radius: 630px;
+  background: #800020;
+  filter: blur(250px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-overlay {
+  mix-blend-mode: overlay;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(224, 255, 0, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(circle at 70% 70%, rgba(0, 255, 209, 0.15), transparent 60%);
+}
+
+@layer utilities {
+  .trapeze {
+    width: 84px;
+    height: 6px;
+    clip-path: polygon(10% 100%, 90% 100%, 100% 0, 0 0);
+    position: relative;
+    background-color: #1081c3;
+    position: absolute;
+    top: -1px;
+  }
+  .trapeze::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 84px;
+    height: 6px;
+    background: inherit;
+    clip-path: polygon(100% 100%, 100% 0, 90% 100%);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+}
+
+@keyframes parallax {
+  0% {
+    transform: scale(1.05) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate(-2%, -2%);
+  }
+  100% {
+    transform: scale(1.05) translate(0, 0);
+  }
+}
+
+@keyframes dream {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@layer utilities {
+  .animate-parallax {
+    animation: parallax 30s ease-in-out infinite;
+  }
+  .animate-dream {
+    background-size: 200% 200%;
+    animation: dream 40s ease-in-out infinite;
+  }
+}

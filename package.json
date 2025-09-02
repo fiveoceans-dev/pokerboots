@@ -1,0 +1,50 @@
+{
+  "name": "ss-2",
+  "version": "1.0.11",
+  "private": true,
+  "license": "MIT",
+  "author": "Q3 Labs",
+  "workspaces": {
+    "packages": [
+      "packages/snfoundry",
+      "packages/nextjs"
+    ]
+  },
+  "scripts": {
+    "build:next": "yarn workspace @ss-2/nextjs build",
+    "start:next": "yarn workspace @ss-2/nextjs start",
+    "chain": "yarn workspace @ss-2/snfoundry chain",
+    "compile": "yarn workspace @ss-2/snfoundry compile",
+    "deploy": "yarn workspace @ss-2/snfoundry deploy",
+    "deploy:clear": "yarn workspace @ss-2/snfoundry deploy:clear",
+    "deploy:no-reset": "yarn workspace @ss-2/snfoundry deploy --no-reset",
+    "format": "yarn workspace @ss-2/nextjs format && yarn workspace @ss-2/snfoundry format",
+    "format:check": "yarn workspace @ss-2/nextjs format:check && yarn workspace @ss-2/snfoundry format:check",
+    "next:check-types": "yarn workspace @ss-2/nextjs check-types",
+    "next:lint": "yarn workspace @ss-2/nextjs lint",
+    "prepare": "husky",
+    "dev": "yarn workspace @ss-2/nextjs dev",
+    "build": "yarn workspace @ss-2/nextjs build",
+    "start": "yarn workspace @ss-2/nextjs start",
+    "test": "yarn workspace @ss-2/snfoundry test",
+    "test:nextjs": "yarn workspace @ss-2/nextjs test",
+    "vercel": "yarn workspace @ss-2/nextjs vercel",
+    "verify": "yarn workspace @ss-2/snfoundry verify"
+  },
+  "dependencies": {
+    "@starknet-io/get-starknet-core": "^4.0.7",
+    "bitcoinjs-lib": "^6.1.7",
+    "postcss": "^8.4.38",
+    "starknet": "^7.6.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "daisyui": "^4.7.3",
+    "husky": "^9.0.11",
+    "pinst": "^3.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "yarn@3.6.4"
+}
